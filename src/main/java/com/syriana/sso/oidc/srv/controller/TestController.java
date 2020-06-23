@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
+
 /**
  * @author syriana.zh
  * @date 2020/06/22
@@ -14,9 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @GetMapping("/getUser")
-    public UserResVo getUser(){
+    public UserResVo getUser(Principal principal){
         UserResVo user = new UserResVo();
-        user.setUserName("userName");
+        user.setUserName(principal.getName());
         user.setUserPwd("userPwd");
         return user;
     }
