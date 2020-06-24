@@ -2,16 +2,15 @@ package com.syriana.sso.oidc.srv.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
+import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 
 /**
  * @author syriana.zh
@@ -26,9 +25,8 @@ public class ResourceConfig extends ResourceServerConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Primary
     @Bean
-    public RemoteTokenServices remoteTokenServices() {
+    public ResourceServerTokenServices tokenServices() {
         final RemoteTokenServices tokenServices = new RemoteTokenServices();
         //设置授权服务器check_token端点完整地址
         tokenServices.setCheckTokenEndpointUrl("http://localhost:8080/oauth/check_token");
@@ -42,15 +40,17 @@ public class ResourceConfig extends ResourceServerConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         //设置创建session策略
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
-        //@formatter:off
         //所有请求必须授权
         http.authorizeRequests()
-                .anyRequest().authenticated();
-        //@formatter:on
+                .anyRequest().access("#oauth2.hasAnyScope('read_user_info')")
+                .and().csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {
-        resources.resourceId("resource1").stateless(true);
+        resources.resourceId("resource1")// 资源ID
+                .tokenServices(tokenServices()) // 验证令牌的服务
+                .stateless(true);
     }
 }
