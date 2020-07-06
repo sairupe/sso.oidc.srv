@@ -23,7 +23,7 @@ public class TestController {
     public UserResVo getUser(Principal principal){
         UserResVo user = new UserResVo();
         user.setUserName(principal.getName());
-        user.setUserPwd("userPwd");
+        user.setUserPwd("sso.oidc.srv -- userPwd");
         return user;
     }
 
