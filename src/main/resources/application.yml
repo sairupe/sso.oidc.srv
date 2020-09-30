@@ -1,3 +1,14 @@
+spring:
+  datasource:
+    driverClassName: ${DATASOURCE_DRIVER:com.mysql.cj.jdbc.Driver}
+    url: ${DATASOURCE_URL:jdbc:mysql://47.106.92.100:3306/erp_sso_oidc?useUnicode=true&characterEncoding=UTF-8}
+    username: ${DATASOURCE_USERNAME:root}
+    password: ${DATASOURCE_PASSWORD:123456}
+
+    redis:
+      cluster:
+        nodes: 106.52.53.192:7001,106.52.53.192:7002,106.52.53.192:7003,106.52.53.192:7004,106.52.53.192:7005,106.52.53.192:7006
+
 server:
   port: 8081
   servlet:
@@ -6,4 +17,4 @@ server:
 logging:
   config: classpath:logback.xml
   level:
-    root: debug
+    root: info
