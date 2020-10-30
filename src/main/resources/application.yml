@@ -18,3 +18,18 @@ logging:
   config: classpath:logback.xml
   level:
     root: info
+
+base:
+  common:
+    core:
+      swagger2:
+        headers: X-Requested-With,X-Organ-Id, Authorization , X-City-Code
+        terms-of-service-url:
+        contact: zhongheng
+        description: 客源边缘服务
+        title: 客源边缘服务
+        base-package: com.syriana
+        custom-base-path: /sso.oidc.srv
+        nick-name-policy: methodName
+        version: v1
+        show-header: true

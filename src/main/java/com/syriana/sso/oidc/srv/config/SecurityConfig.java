@@ -8,7 +8,7 @@
 ///**
 // * @author syriana.zh
 // * @date 2020/06/22
-// * @EnableGlobalMethodSecurity(prePostEnabled = true)  controller有了这个配置似乎就不用这个了
+// * @EnableGlobalMethodSecurity(prePostEnabled = true)  controller有了这个配置似乎就不用这个了，一直要注释!!!!!
 // */
 //@Configuration
 //@EnableWebSecurity

@@ -15,7 +15,6 @@ import java.security.Principal;
  */
 @RestController
 @RequestMapping("/resource")
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class TestController {
 
     @PreAuthorize("hasAnyAuthority('p1')")

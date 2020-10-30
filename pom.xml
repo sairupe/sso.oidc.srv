@@ -48,6 +48,12 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-jwt</artifactId>
 		</dependency>
+		<!-- 核心库 -->
+		<dependency>
+			<groupId>com.syriana</groupId>
+			<artifactId>base.common.core</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<!-- REDIS -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
