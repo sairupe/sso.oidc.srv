@@ -42,6 +42,7 @@ public class ResourceConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers("/webjars/**").permitAll() //swagger放开
                 .antMatchers("/v2/**").permitAll() //swagger放开
                 .antMatchers("/redis/**").permitAll() //swagger放开
+                .antMatchers("/rpc/**").permitAll() //swagger放开
                 .anyRequest().access("#oauth2.hasAnyScope('read_user_info')") //redis放开
 //                .anyRequest().permitAll()
                 .and().csrf().disable()
