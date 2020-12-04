@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -47,5 +48,13 @@ public class RedisController {
     public RestResult<Boolean> del(String key) {
         Boolean delete = redisTemplate.delete(key);
         return RestResult.suc("查询成功", delete);
+    }
+
+    @PostMapping("/delAll")
+    @ApiOperation(value = "delAll", nickname = "delAll")
+    public RestResult<Boolean> delAll(String key) {
+        Set keys = redisTemplate.keys(key + "*");
+        Long result = redisTemplate.delete(keys);
+        return RestResult.suc("查询成功", result);
     }
 }
